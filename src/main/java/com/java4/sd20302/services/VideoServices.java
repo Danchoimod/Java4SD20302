@@ -1,5 +1,8 @@
 package com.java4.sd20302.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.java4.sd20302.entities.Category;
 import com.java4.sd20302.entities.Comment;
 import com.java4.sd20302.entities.Favourites;
@@ -123,12 +126,13 @@ public class VideoServices {
 				manager.remove(favourite);
 			}
 
-			for (Comment comment : videoCheck.getComments()) {
-				for (Comment subComment : comment.getComments()) {
-					manager.remove(subComment); // ?????
-				}
-				manager.remove(comment);
-			}
+//			for (Comment comment : videoCheck.getComments()) {
+//				for (Comment subComment : comment.getComments()) {
+//					manager.remove(subComment); // ?????
+//				}
+//				manager.remove(comment);
+//			}
+			deleteComment(videoCheck.getComments(), manager);
 			manager.remove(videoCheck);
 
 //			Xoá yêu thích
@@ -143,5 +147,39 @@ public class VideoServices {
 		}
 
 		return null;
+	}
+
+	private static void deleteComment(List<Comment> comments, EntityManager manager) {
+		if (comments.size() == 0) {
+			return;
+		}
+		for (Comment comment : comments) {
+			deleteComment(comment.getComments(), manager);
+			manager.remove(comment);
+		}
+	}
+
+	private static List<Video> getVideos(String title, int catId) {
+		List<Video> videos = new ArrayList<Video>();
+
+		EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("dbConnect");
+		EntityManager manager = managerFactory.createEntityManager();
+
+		try {
+			String sql = "SELECT * FROM videos WHERE (?1 = '' OR title LIKE '%?2%') AND (?3 = 0 OR cat_id = ?4)";
+
+			Query query = manager.createNativeQuery(sql, Video.class);
+			query.setParameter(1, title == null ? "" : title);
+			query.setParameter(2, title == null ? "%%" : "%" + title + "%");
+			query.setParameter(3, catId);
+			query.setParameter(4, catId);
+
+			videos = query.getResultList();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return videos;
 	}
 }
