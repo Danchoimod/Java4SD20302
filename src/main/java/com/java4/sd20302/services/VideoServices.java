@@ -159,7 +159,7 @@ public class VideoServices {
 		}
 	}
 
-	private static List<Video> getVideos(String title, int catId) {
+	public static List<Video> getVideos(String title, int catId) {
 		List<Video> videos = new ArrayList<Video>();
 
 		EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("dbConnect");
