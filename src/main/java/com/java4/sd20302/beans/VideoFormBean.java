@@ -42,11 +42,19 @@ public class VideoFormBean {
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+//		Xử lý tiêu đề khi user nhập vào input 
+//		Tách chuỗi => Array => Join Array => Chuỗi
+
+//		String titleTrim = title.trim();
+//		String[] arrTitle = titleTrim.split("//s+");
+//
+//		this.title = String.join(" ", arrTitle);
+
+		this.title = String.join(" ", title.trim().split("\\s+"));
 	}
 
 	public void setDesc(String desc) {
-		this.desc = desc;
+		this.desc = String.join(" ", desc.trim().split("\\s+"));
 	}
 
 }

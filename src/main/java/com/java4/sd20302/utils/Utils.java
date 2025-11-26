@@ -1,8 +1,11 @@
 package com.java4.sd20302.utils;
 
+import java.util.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 public class Utils {
 //	2  hằng số giữ giá trị key của cookie 
@@ -51,7 +54,7 @@ public class Utils {
 
 //		name = "[tHế, giới, ĐỘNg, VậT]"
 
-		String words[] = str.trim().split("//s+");
+		String words[] = str.trim().split("\\s+");
 		for (int i = 0; i < words.length; i++) {
 			words[i] = words[i].toLowerCase();
 			String firstChar = words[i].substring(0, 1);
@@ -60,5 +63,23 @@ public class Utils {
 		}
 
 		return String.join(" ", words);
+	}
+
+	public static String uploadImage(HttpServletRequest req, Part part) {
+		try {
+			String type = part.getContentType().split("/")[1];
+			String name = String.valueOf(new Date().getTime()) + "." + type;
+			String path = "/assets/images/" + name;
+
+			String tomcatPath = req.getServletContext().getRealPath(path);
+
+			part.write(tomcatPath);
+
+			return name;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

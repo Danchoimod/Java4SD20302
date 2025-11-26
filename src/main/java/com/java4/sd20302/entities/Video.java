@@ -31,14 +31,14 @@ public class Video {
 	@Column(name = "title", nullable = false, columnDefinition = "NVARCHAR(1000)")
 	private String title;
 
-	@Column(name = "desc", nullable = false, columnDefinition = "NTEXT")
+	@Column(name = "content", nullable = false, columnDefinition = "NTEXT")
 	private String desc;
 
 	@Column(name = "poster", nullable = false, length = 255)
 	private String poster;
 
-	@Column(name = "url_youtube", nullable = false, length = 255)
-	private String urlYoutube;
+	@Column(name = "url", nullable = false, length = 255)
+	private String url;
 
 	@Column(name = "create_at", nullable = false)
 	private Date createAt;

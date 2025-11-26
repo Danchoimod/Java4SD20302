@@ -18,17 +18,17 @@
 				enctype="multipart/form-data">
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Tiêu đề</label>
-				  <input name="title" type="text" class="form-control">
+				  <input value="${bean.title}" name="title" type="text" class="form-control">
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Mô tả</label>
-				  <textarea name="desc" class="form-control" rows="3"></textarea>
+				  <textarea name="desc" class="form-control" rows="3">${bean.desc}</textarea>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Url Video</label>
-				  <input name="url" type="text" class="form-control">
+				  <input value="${bean.url}" name="url" type="text" class="form-control">
 				</div>
 				
 				<div class="mb-3">
