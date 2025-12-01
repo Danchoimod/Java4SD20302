@@ -53,7 +53,7 @@ public class Video {
 	@JoinColumn(name = "cat_id")
 	private Category category;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 
